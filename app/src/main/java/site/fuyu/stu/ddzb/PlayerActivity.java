@@ -26,6 +26,9 @@ public class PlayerActivity extends AppCompatActivity {
     private CommentsRvAdapter rvAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player);
         channel = (Channel) getIntent().getSerializableExtra("Channel");

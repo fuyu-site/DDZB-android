@@ -24,6 +24,30 @@ public class CommentsLab {
         comments.setAuthor("张三");
         comments.setContent("awslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawsl");
         data.add(comments);
+        comments = new Comments();
+        comments.setAuthor("张三");
+        comments.setContent("awslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawsl");
+        data.add(comments);
+        comments = new Comments();
+        comments.setAuthor("张三");
+        comments.setContent("awslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawsl");
+        data.add(comments);
+        comments = new Comments();
+        comments.setAuthor("张三");
+        comments.setContent("awslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawsl");
+        data.add(comments);
+        comments = new Comments();
+        comments.setAuthor("张三");
+        comments.setContent("awslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawsl");
+        data.add(comments);
+        comments = new Comments();
+        comments.setAuthor("张三");
+        comments.setContent("awslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawsl");
+        data.add(comments);
+        comments = new Comments();
+        comments.setAuthor("张三");
+        comments.setContent("awslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawsl");
+        data.add(comments);
         Log.d("DD1", "getData: " + data);
     }
 
