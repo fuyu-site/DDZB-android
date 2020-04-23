@@ -6,6 +6,9 @@ import android.util.Log;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.source.ExtractorMediaSource;
@@ -20,7 +23,7 @@ public class PlayerActivity extends AppCompatActivity {
     MediaSource videoSource;
     long CurrentPosition;
     private Channel channel;
-
+    private CommentsRvAdapter rvAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +31,14 @@ public class PlayerActivity extends AppCompatActivity {
         channel = (Channel) getIntent().getSerializableExtra("Channel");
         initPlayer();
         updateUI();
+
+
+        RecyclerView commentsrv = findViewById(R.id.comments_rv);
+        rvAdapter = new CommentsRvAdapter(this);
+        commentsrv.setAdapter(rvAdapter);
+        commentsrv.setLayoutManager(new LinearLayoutManager(this));
+
+
     }
     @Override
     protected void onDestroy() {
@@ -101,4 +112,5 @@ public class PlayerActivity extends AppCompatActivity {
         videoQuality.setText(this.channel.getQuality());
 
     }
+
 }

@@ -11,15 +11,13 @@
     <com.google.android.exoplayer2.ui.PlayerView
         android:id="@+id/video_player"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="220dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0">
-
-
     </com.google.android.exoplayer2.ui.PlayerView>
 
     <TextView
@@ -42,4 +40,24 @@
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="@+id/videoTitle"
         app:layout_constraintTop_toBottomOf="@+id/videoTitle" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/comments_rv"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/comment" />
+
+    <TextView
+        android:id="@+id/comment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="评论"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/videoQuality" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
