@@ -1,10 +1,14 @@
 package site.fuyu.stu.ddzb;
 
+import android.annotation.SuppressLint;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,6 +28,10 @@ public class PlayerActivity extends AppCompatActivity {
     long CurrentPosition;
     private Channel channel;
     private CommentsRvAdapter rvAdapter;
+    private CommentsLab commentsLab = CommentsLab.getInstance();
+    private ChannelLab channelLab = ChannelLab.getInstance();
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         if (getSupportActionBar() != null) {
@@ -63,6 +71,7 @@ public class PlayerActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        initComments();
         if (player != null) {
             Log.d("DD1", "onResume: 重建player");
             //player.setPlayWhenReady(true);
@@ -114,6 +123,20 @@ public class PlayerActivity extends AppCompatActivity {
         videoTitle.setText(this.channel.getTitle());
         videoQuality.setText(this.channel.getQuality());
 
+    }
+
+    private void initComments() {
+        @SuppressLint("HandlerLeak") Handler handler = new Handler() {
+            //获取数据
+            @Override
+            public void handleMessage(@NonNull Message msg) {
+                //收到数据，处理
+                if (msg.what == 2) {
+                    rvAdapter.notifyDataSetChanged();
+                }
+            }
+        };
+        commentsLab.getData(channel.getId(), handler);
     }
 
 }

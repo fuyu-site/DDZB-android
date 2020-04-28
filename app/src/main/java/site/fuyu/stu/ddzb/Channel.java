@@ -8,10 +8,40 @@ import java.util.Objects;
  * 频道模型对象
  */
 public class Channel implements Serializable {
+    private String id;
     private String title;
     private String quality;
     private String cover;
     private String url;
+    private List<Comments> comments;
+
+    @Override
+    public String toString() {
+        return "Channel{" +
+                "id='" + id + '\'' +
+                ", title='" + title + '\'' +
+                ", quality='" + quality + '\'' +
+                ", cover='" + cover + '\'' +
+                ", url='" + url + '\'' +
+                ", comments=" + comments +
+                '}';
+    }
+
+    public List<Comments> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comments> comments) {
+        this.comments = comments;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getCover() {
         return cover;
@@ -45,29 +75,21 @@ public class Channel implements Serializable {
         this.quality = quality;
     }
 
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Channel channel = (Channel) o;
-        return cover == channel.cover &&
+        return Objects.equals(id, channel.id) &&
                 Objects.equals(title, channel.title) &&
-                Objects.equals(quality, channel.quality);
+                Objects.equals(quality, channel.quality) &&
+                Objects.equals(cover, channel.cover) &&
+                Objects.equals(url, channel.url) &&
+                Objects.equals(comments, channel.comments);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(title, quality, cover);
-    }
-
-    @Override
-    public String toString() {
-        return "Channel{" +
-                "title='" + title + '\'' +
-                ", quality='" + quality + '\'' +
-                ", cover=" + cover +
-                ", url='" + url + '\'' +
-                '}';
+        return Objects.hash(id, title, quality, cover, url, comments);
     }
 }

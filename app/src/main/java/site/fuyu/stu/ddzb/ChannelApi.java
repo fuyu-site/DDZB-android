@@ -11,13 +11,16 @@ public interface ChannelApi {
     Call<List<Channel>> getAllChannels();
 
     @GET("/channel/{id}")
-    Call<List<Channel>> getChannelById(@Path("id") String id);
+    Call<Channel> getChannelById(@Path("id") String id);
 
     @GET("/channel/t/{t}")
     Call<List<Channel>> getChannelByTitle(@Path("t") String t);
 
     @GET("/channel/q/{q}")
     Call<List<Channel>> getChannelByQuality(@Path("q") String q);
+
+//    @GET("channel/{id}")
+//    Call<Channel> getChannel(@Path("id") String id);
 
 
 }

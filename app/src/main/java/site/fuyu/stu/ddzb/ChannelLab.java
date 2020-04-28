@@ -97,4 +97,7 @@ class ChannelLab {
     }
 
 
+    public void getChannelData(String id) {
+
+    }
 }
