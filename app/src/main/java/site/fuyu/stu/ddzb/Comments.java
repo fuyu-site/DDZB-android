@@ -1,15 +1,18 @@
 package site.fuyu.stu.ddzb;
 
-import java.time.LocalDateTime;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Date;
 import java.util.Objects;
 
 public class Comments {
     private String content;
     private String author;
-    private LocalDateTime dateTime;
+    private Date dateTime;
     private int star;
 
 
+    @NotNull
     @Override
     public String toString() {
         return "Comments{" +
@@ -36,7 +39,7 @@ public class Comments {
         return Objects.hash(content, author, dateTime, star);
     }
 
-    public String getContent() {
+    String getContent() {
         return content;
     }
 
@@ -44,7 +47,7 @@ public class Comments {
         this.content = content;
     }
 
-    public String getAuthor() {
+    String getAuthor() {
         return author;
     }
 
@@ -52,11 +55,11 @@ public class Comments {
         this.author = author;
     }
 
-    public LocalDateTime getDateTime() {
+    public Date getDateTime() {
         return dateTime;
     }
 
-    public void setDateTime(LocalDateTime dateTime) {
+    public void setDateTime(Date dateTime) {
         this.dateTime = dateTime;
     }
 

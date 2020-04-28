@@ -15,7 +15,7 @@ import com.bumptech.glide.Glide;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 public class CommentsRvAdapter extends RecyclerView.Adapter<CommentsRvAdapter.CommentsRowHolder> {
     private CommentsLab commentsLab = new CommentsLab();
@@ -48,7 +48,7 @@ public class CommentsRvAdapter extends RecyclerView.Adapter<CommentsRvAdapter.Co
     class CommentsRowHolder extends RecyclerView.ViewHolder {
         private TextView content;
         private TextView author;
-        private LocalDateTime dateTime;
+        private Date dateTime;
         private ImageView cover;
         private int star;
 
