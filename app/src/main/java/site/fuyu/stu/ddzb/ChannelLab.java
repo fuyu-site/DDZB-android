@@ -18,7 +18,7 @@ class ChannelLab {
     private ChannelLab() {
     }
 
-    public static ChannelLab getInstance(){
+    static ChannelLab getInstance() {
         if (INSTANCE==null){
             INSTANCE = new ChannelLab();
         }
@@ -60,7 +60,7 @@ class ChannelLab {
     /**
      * 获取网络数据
      */
-    public void getData(Handler handler){
+    void getData(Handler handler) {
         Retrofit retrofit = RetrofitClient.get();
         ChannelApi api = retrofit.create(ChannelApi.class);
         retrofit2.Call<List<Channel>> call  = api.getAllChannels();
@@ -84,7 +84,7 @@ class ChannelLab {
     }
 
     //修改数据方法
-    public void setData(List<Channel> newData){
+    private void setData(List<Channel> newData) {
         this.data = newData;
     }
 
@@ -95,4 +95,6 @@ class ChannelLab {
     Channel getChannel(int position) {
         return data.get(position);
     }
+
+
 }
