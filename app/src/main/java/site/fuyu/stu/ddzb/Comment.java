@@ -2,10 +2,11 @@ package site.fuyu.stu.ddzb;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
-public class Comments {
+public class Comment implements Serializable {
     private String content;
     private String author;
     private Date dateTime;
@@ -27,11 +28,11 @@ public class Comments {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Comments comments = (Comments) o;
-        return star == comments.star &&
-                Objects.equals(content, comments.content) &&
-                Objects.equals(author, comments.author) &&
-                Objects.equals(dateTime, comments.dateTime);
+        Comment comment = (Comment) o;
+        return star == comment.star &&
+                Objects.equals(content, comment.content) &&
+                Objects.equals(author, comment.author) &&
+                Objects.equals(dateTime, comment.dateTime);
     }
 
     @Override

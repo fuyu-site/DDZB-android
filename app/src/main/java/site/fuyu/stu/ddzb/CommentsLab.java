@@ -12,80 +12,76 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-public class CommentsLab {
+class CommentsLab {
     private static CommentsLab INSTANCE = null;
-    List<Comments> data = new ArrayList<>();
+    List<Comment> data = new ArrayList<>();
 
-    CommentsLab() {
+    private CommentsLab() {
 //            getData();
     }
 
-    public static CommentsLab getInstance() {
+    static CommentsLab getInstance() {
         if (INSTANCE == null) {
             INSTANCE = new CommentsLab();
         }
         return INSTANCE;
     }
 
-    public void getData(String id, Handler handler) {
+    void getData(String id, Handler handler) {
         Retrofit retrofit = RetrofitClient.get();
         ChannelApi api = retrofit.create(ChannelApi.class);
-        Call<Channel> call = api.getChannelById(id);
-        call.enqueue(new Callback<Channel>() {
+        Call<List<Comment>> call = api.getHotComments(id);
+        call.enqueue(new Callback<List<Comment>>() {
             @Override
-            public void onResponse(Call<Channel> call, Response<Channel> response) {
-                Log.d("DD1", "onResponse: " + response.body().toString());
-                Channel channel = response.body();
-                data.addAll(channel.getComments());
-                Log.d("DD1", "onResponse: " + channel);
-
+            public void onResponse(Call<List<Comment>> call, Response<List<Comment>> response) {
+                Log.d("DD1", "onResponse:  response.body().toString() " + response.body().toString());
+                List<Comment> comments = response.body();
+                setData(comments);
+                Log.d("DD1", "onResponse: data" + data);
                 Message msg = new Message();
                 msg.what = 2;
                 handler.sendMessage(msg);
             }
-
             @Override
-            public void onFailure(Call<Channel> call, Throwable t) {
-
+            public void onFailure(Call<List<Comment>> call, Throwable t) {
             }
         });
-
-//        Comments comments = new Comments();
-//        comments.setAuthor("张三");
-//        comments.setContent("awslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawsl");
-//        data.add(comments);
-//        comments = new Comments();
-//        comments.setAuthor("张三");
-//        comments.setContent("awslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawsl");
-//        data.add(comments);
-//        comments = new Comments();
-//        comments.setAuthor("张三");
-//        comments.setContent("awslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawsl");
-//        data.add(comments);
-//        comments = new Comments();
-//        comments.setAuthor("张三");
-//        comments.setContent("awslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawsl");
-//        data.add(comments);
-//        comments = new Comments();
-//        comments.setAuthor("张三");
-//        comments.setContent("awslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawsl");
-//        data.add(comments);
-//        comments = new Comments();
-//        comments.setAuthor("张三");
-//        comments.setContent("awslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawsl");
-//        data.add(comments);
-//        comments = new Comments();
-//        comments.setAuthor("张三");
-//        comments.setContent("awslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawslawsl");
-//        data.add(comments);
         Log.d("DD1", "getData: " + data);
+    }
+
+    void addComment(String id, Comment comment, Handler handler) {
+        Retrofit retrofit = RetrofitClient.get();
+        ChannelApi api = retrofit.create(ChannelApi.class);
+        Call<List<Comment>> call = api.addComment(id, comment);
+        call.enqueue(new Callback<List<Comment>>() {
+            @Override
+            public void onResponse(Call<List<Comment>> call, Response<List<Comment>> response) {
+                List<Comment> comments = response.body();
+                setData(comments);
+                Message message = new Message();
+                message.what = 3;
+                handler.sendMessage(message);
+            }
+
+            @Override
+            public void onFailure(Call<List<Comment>> call, Throwable t) {
+                Message message = new Message();
+                message.what = 4;
+                handler.sendMessage(message);
+            }
+        });
+    }
+
+    private void setData(List<Comment> newData) {
+        this.data = newData;
     }
 
     int getSize() {
         return data.size();
     }
 
-    Comments getComments(int position) {
+    Comment getComments(int position) {
         return data.get(position);
     }
+
 }

@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements ChannelRvAdapter.
             Log.d("DD1", "onChannelClick: "+channel);
             intent.putExtra("Channel",channel);
             startActivity(intent);
+
         }
     }
 }

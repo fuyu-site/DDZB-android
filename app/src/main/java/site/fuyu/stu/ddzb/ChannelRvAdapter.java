@@ -12,6 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -61,6 +63,11 @@ public class ChannelRvAdapter extends RecyclerView.Adapter<ChannelRvAdapter.Chan
     }
 
 
+    //定义新接口
+    public interface ChannelClickListener {
+        void onChannelClick(int position);
+    }
+
     /**
      * 单行布局对应的Java控制类
      */
@@ -96,14 +103,9 @@ public class ChannelRvAdapter extends RecyclerView.Adapter<ChannelRvAdapter.Chan
             Glide.with(context)
                     .load(c.getCover())
                     .placeholder(R.drawable.cover)
-//                    .apply(requestOptions)
+                    .transform(new CenterCrop(), new RoundedCorners(10))
                     .into(this.cover1);
         }
-    }
-
-    //定义新接口
-    public interface ChannelClickListener{
-        public void onChannelClick(int position);
     }
 
 }

@@ -12,13 +12,18 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.bumptech.glide.request.RequestOptions;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 public class CommentsRvAdapter extends RecyclerView.Adapter<CommentsRvAdapter.CommentsRowHolder> {
-    private CommentsLab commentsLab = new CommentsLab();
+    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.forLanguageTag("GMT+8:00"));
+    private CommentsLab commentsLab = CommentsLab.getInstance();
     private Context context;
 
     CommentsRvAdapter(Context context) {
@@ -35,7 +40,7 @@ public class CommentsRvAdapter extends RecyclerView.Adapter<CommentsRvAdapter.Co
     @Override
     public void onBindViewHolder(@NonNull CommentsRowHolder holder, int position) {
         Log.d("DD", "onBindViewHolder Position=" + position);
-        Comments comment = commentsLab.getComments(position);
+        Comment comment = commentsLab.getComments(position);
         Log.d("DD1", "onBindViewHolder: " + comment);
         holder.bind(comment);
     }
@@ -46,30 +51,31 @@ public class CommentsRvAdapter extends RecyclerView.Adapter<CommentsRvAdapter.Co
     }
 
     class CommentsRowHolder extends RecyclerView.ViewHolder {
-        private TextView content;
-        private TextView author;
-        private Date dateTime;
-        private ImageView cover;
-        private int star;
+        private TextView content;  //评论内容
+        private TextView author;  //评论作者
+        private TextView dateTime;  //评论时间
+        private ImageView cover;  //评论作者头像
+        private int star;  //点赞数量
 
         CommentsRowHolder(@NonNull View row) {
             super(row);
             this.content = row.findViewById(R.id.comment_content);
             this.author = row.findViewById(R.id.comment_author);
             this.cover = row.findViewById(R.id.comment_cover);
-            Log.d("DD1", "R.id.comment_content: " + R.id.comment_content);
+            this.dateTime = row.findViewById(R.id.comment_time);
         }
 
-        void bind(@NotNull Comments c) {
+        void bind(@NotNull Comment c) {
             Log.d("DD1", "bind: " + c.getAuthor());
             this.content.setText(c.getContent());
             Log.d("DD1", "bind: " + c.getAuthor());
             this.author.setText(c.getAuthor());
+            this.dateTime.setText(dateFormat.format(c.getDateTime()));
 
             Glide.with(context)
                     .load("https://pan.fuyu.site/pic/pic001.png")
                     .placeholder(R.drawable.cover)
-//                    .apply(requestOptions)
+                    .apply(RequestOptions.bitmapTransform(new CircleCrop()))
                     .into(this.cover);
         }
     }

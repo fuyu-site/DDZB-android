@@ -15,3 +15,5 @@
 /app/release/app-release.aab
 /app/release/app-release.apk
 /app/release/output.json
+/hs_err_pid4512.log
+/replay_pid4512.log

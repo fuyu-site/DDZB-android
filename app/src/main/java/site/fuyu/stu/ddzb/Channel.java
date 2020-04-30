@@ -1,7 +1,6 @@
 package site.fuyu.stu.ddzb;
 
 import java.io.Serializable;
-import java.util.List;
 import java.util.Objects;
 
 /**
@@ -13,7 +12,6 @@ public class Channel implements Serializable {
     private String quality;
     private String cover;
     private String url;
-    private List<Comments> comments;
 
     @Override
     public String toString() {
@@ -23,17 +21,9 @@ public class Channel implements Serializable {
                 ", quality='" + quality + '\'' +
                 ", cover='" + cover + '\'' +
                 ", url='" + url + '\'' +
-                ", comments=" + comments +
                 '}';
     }
 
-    public List<Comments> getComments() {
-        return comments;
-    }
-
-    public void setComments(List<Comments> comments) {
-        this.comments = comments;
-    }
 
     public String getId() {
         return id;
@@ -84,12 +74,11 @@ public class Channel implements Serializable {
                 Objects.equals(title, channel.title) &&
                 Objects.equals(quality, channel.quality) &&
                 Objects.equals(cover, channel.cover) &&
-                Objects.equals(url, channel.url) &&
-                Objects.equals(comments, channel.comments);
+                Objects.equals(url, channel.url);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, quality, cover, url, comments);
+        return Objects.hash(id, title, quality, cover, url);
     }
 }
