@@ -185,8 +185,11 @@ public class PlayerActivity extends AppCompatActivity {
             Comment comment = new Comment();
             comment.setAuthor("Myapp");
             comment.setStar(100);
-            comment.setContent(editText.getText().toString());
-            commentsLab.addComment(channel.getId(), comment, handler);
+            if (editText.getText() != null) {
+                Log.d("DD1", "sendComment: " + editText.getText());
+                comment.setContent(editText.getText().toString());
+                commentsLab.addComment(channel.getId(), comment, handler);
+            }
         });
     }
 

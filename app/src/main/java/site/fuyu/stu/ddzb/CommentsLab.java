@@ -65,6 +65,7 @@ class CommentsLab {
 
             @Override
             public void onFailure(Call<List<Comment>> call, Throwable t) {
+                Log.d("DD1", "onFailure: " + t.toString());
                 Message message = new Message();
                 message.what = 4;
                 handler.sendMessage(message);
