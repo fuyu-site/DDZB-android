@@ -85,7 +85,7 @@ public class ChannelRvAdapter extends RecyclerView.Adapter<ChannelRvAdapter.Chan
             row.setOnClickListener((v)->{
                 int position = getLayoutPosition();
                 Log.d("DD1", "点击了"+position+"行");
-                //TODO 调用实际的接口
+                // 调用实际的接口
                 listener.onChannelClick(position);
             });
         }

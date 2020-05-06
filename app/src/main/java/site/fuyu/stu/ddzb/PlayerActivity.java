@@ -185,10 +185,12 @@ public class PlayerActivity extends AppCompatActivity {
             Comment comment = new Comment();
             comment.setAuthor("Myapp");
             comment.setStar(100);
-            if (editText.getText() != null) {
+            if (editText.getText().toString().trim().length() != 0) {
                 Log.d("DD1", "sendComment: " + editText.getText());
                 comment.setContent(editText.getText().toString());
                 commentsLab.addComment(channel.getId(), comment, handler);
+            } else {
+                Toast.makeText(PlayerActivity.this, "请输入评论", Toast.LENGTH_LONG).show();
             }
         });
     }
