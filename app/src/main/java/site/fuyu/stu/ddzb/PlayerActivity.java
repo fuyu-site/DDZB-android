@@ -150,10 +150,8 @@ public class PlayerActivity extends AppCompatActivity {
             @Override
             public void handleMessage(@NonNull Message msg) {
                 //收到数据，处理
-                switch (msg.what) {
-                    case 2:
-                        rvAdapter.notifyDataSetChanged();
-                        break;
+                if (msg.what == 2) {
+                    rvAdapter.notifyDataSetChanged();
                 }
             }
         };
