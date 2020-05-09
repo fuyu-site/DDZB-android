@@ -30,7 +30,7 @@ public class UserLab {
         user.setUsername(username);
         user.setPassword(password);
         Retrofit retrofit = RetrofitClient.get();
-        ChannelApi api = retrofit.create(ChannelApi.class);
+        UserApi api = retrofit.create(UserApi.class);
         Call<Integer> cal1 = api.login(user);
         cal1.enqueue(new Callback<Integer>() {
             @Override

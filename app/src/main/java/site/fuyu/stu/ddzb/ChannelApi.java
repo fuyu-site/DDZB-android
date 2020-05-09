@@ -27,6 +27,4 @@ public interface ChannelApi {
     @POST("/channel/{channelId}/comment")
     Call<List<Comment>> addComment(@Path("channelId") String channelId, @Body Comment comment);
 
-    @POST("/user/login")
-    Call<Integer> login(@Body User user);
 }
