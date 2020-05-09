@@ -13,6 +13,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.util.Objects;
+
 public class LoginActivity extends AppCompatActivity {
     @SuppressLint("HandlerLeak")
     private final Handler handler = new Handler() {
@@ -43,20 +45,39 @@ public class LoginActivity extends AppCompatActivity {
         username = findViewById(R.id.username);
         password = findViewById(R.id.password);
         login = findViewById(R.id.login_button);
+        register = findViewById(R.id.register_button);
+        findPassword = findViewById(R.id.find_password);
 
         login.setOnClickListener(v -> {
-            String u = username.getEditText().getText().toString();
-            String p = password.getEditText().getText().toString();
+            String u = Objects.requireNonNull(username.getEditText()).getText().toString();
+            String p = Objects.requireNonNull(password.getEditText()).getText().toString();
             lab.login(u, p, handler);
         });
+        register.setOnClickListener(v -> register());
+        findPassword.setOnClickListener(v -> findPassword());
     }
 
     private void loginSuccess() {
-        Toast.makeText(LoginActivity.this, "登录成功！", Toast.LENGTH_LONG).show();
-        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-        startActivity(intent);
+        if (ClickUtil.isFastClick()) {
+            Toast.makeText(LoginActivity.this, "登录成功！", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(intent);
+        }
     }
 
+    private void register() {
+        if (ClickUtil.isFastClick()) {
+            Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+            startActivity(intent);
+        }
+    }
+
+    private void findPassword() {
+        if (ClickUtil.isFastClick()) {
+            Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+            startActivity(intent);
+        }
+    }
     private void loginFail() {
         Toast.makeText(LoginActivity.this, "登录失败！", Toast.LENGTH_LONG).show();
     }
