@@ -3,13 +3,13 @@ package site.fuyu.stu.ddzb;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class Comment implements Serializable {
     private String content;
     private String author;
-    private Date dateTime;
+    private LocalDateTime dateTime;
     private int star;
 
 
@@ -56,11 +56,11 @@ public class Comment implements Serializable {
         this.author = author;
     }
 
-    public Date getDateTime() {
+    public LocalDateTime getDateTime() {
         return dateTime;
     }
 
-    public void setDateTime(Date dateTime) {
+    public void setDateTime(LocalDateTime dateTime) {
         this.dateTime = dateTime;
     }
 

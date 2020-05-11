@@ -1,6 +1,7 @@
 package site.fuyu.stu.ddzb;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class User {
@@ -10,8 +11,8 @@ public class User {
     private int status = 0;
     private String phone;
     private String gender;
-    private Date birthday;
-    private Date lastLogin;
+    private LocalDate birthday;
+    private LocalDateTime lastLogin;
     private String lastIp;
 
     public String getId() {
@@ -62,19 +63,19 @@ public class User {
         this.gender = gender;
     }
 
-    public Date getBirthday() {
+    public LocalDate getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Date birthday) {
+    public void setBirthday(LocalDate birthday) {
         this.birthday = birthday;
     }
 
-    public Date getLastLogin() {
+    public LocalDateTime getLastLogin() {
         return lastLogin;
     }
 
-    public void setLastLogin(Date lastLogin) {
+    public void setLastLogin(LocalDateTime lastLogin) {
         this.lastLogin = lastLogin;
     }
 

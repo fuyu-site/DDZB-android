@@ -12,6 +12,8 @@ import retrofit2.Retrofit;
 public class UserLab {
     static final int USER_LOGIN_FAIL = -1;
     static final int USER_LOGIN_SUCCESS = 1;
+    static final int USER_REGISTER_SUCCESS = 1;
+    static final int USER_REGISTER_FAIL = 0;
     private static UserLab INSTANCE = null;
     private static String TAG = "DD1";
 
@@ -31,8 +33,8 @@ public class UserLab {
         user.setPassword(password);
         Retrofit retrofit = RetrofitClient.get();
         UserApi api = retrofit.create(UserApi.class);
-        Call<Integer> cal1 = api.login(user);
-        cal1.enqueue(new Callback<Integer>() {
+        Call<Integer> call = api.login(user);
+        call.enqueue(new Callback<Integer>() {
             @Override
             public void onResponse(Call<Integer> call, Response<Integer> response) {
                 int num = 0;
@@ -66,6 +68,26 @@ public class UserLab {
             @Override
             public void onFailure(Call<Integer> call, Throwable t) {
                 Log.e(TAG, "登录失败", t);
+            }
+        });
+    }
+
+    public void register(User user, Handler handler) {
+        Retrofit retrofit = RetrofitClient.get();
+        UserApi api = retrofit.create(UserApi.class);
+        Call<User> call = api.register(user);
+        call.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                Log.d(TAG, "onResponse: " + response.body());
+                Message msg3 = new Message();
+                msg3.what = USER_REGISTER_SUCCESS;
+                handler.sendMessage(msg3);
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+
             }
         });
     }

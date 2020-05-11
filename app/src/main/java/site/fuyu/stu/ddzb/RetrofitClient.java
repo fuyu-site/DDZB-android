@@ -11,7 +11,8 @@ class RetrofitClient {
     static Retrofit get() {
         if (retrofit == null) {
             Moshi moshi = new Moshi.Builder()
-                    .add(new DateAdapter())
+                    .add(new LocalDateTimeAdapter())
+                    .add(new LocalDateAdapter())
                     .build();
 
             retrofit = new Retrofit.Builder()

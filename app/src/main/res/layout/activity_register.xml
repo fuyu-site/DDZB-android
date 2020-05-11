@@ -93,31 +93,79 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
-        android:id="@+id/gender"
+        android:id="@+id/r_gender_string"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="@string/r_gender"
+        android:textSize="24sp"
         app:layout_constraintStart_toStartOf="@+id/r_phone"
         app:layout_constraintTop_toBottomOf="@+id/r_phone" />
 
-    <RadioButton
-        android:id="@+id/radioButton"
+
+    <RadioGroup
+        android:id="@+id/r_gender"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:text="@string/r_gender_M"
-        app:layout_constraintStart_toEndOf="@+id/gender"
-        app:layout_constraintTop_toBottomOf="@+id/r_phone" />
+        android:layout_marginTop="16dp"
+        android:checkedButton="@id/r_unknown"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toEndOf="@+id/r_gender_string"
+        app:layout_constraintTop_toBottomOf="@+id/r_phone">
 
-    <RadioButton
-        android:id="@+id/radioButton2"
+        <RadioButton
+            android:id="@+id/r_male"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/male" />
+
+        <RadioButton
+            android:id="@+id/r_female"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/female" />
+
+        <RadioButton
+            android:id="@+id/r_unknown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/unknown" />
+    </RadioGroup>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/r_birthday"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
+        android:hint="@string/birthday"
+        app:endIconDrawable="@drawable/ic_event_black_24dp"
+        app:endIconMode="custom"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/r_gender">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="auto"
+            android:imeOptions="actionDone"
+            android:inputType="date"
+            android:singleLine="true" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/r_register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:text="@string/r_gender_W"
-        app:layout_constraintStart_toEndOf="@+id/radioButton"
-        app:layout_constraintTop_toBottomOf="@+id/r_phone" />
-
+        android:layout_marginTop="32dp"
+        android:text="@string/login_register"
+        app:icon="@drawable/ic_send_black_24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/r_birthday" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

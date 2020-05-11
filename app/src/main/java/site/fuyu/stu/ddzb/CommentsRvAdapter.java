@@ -17,12 +17,12 @@ import com.bumptech.glide.request.RequestOptions;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
 public class CommentsRvAdapter extends RecyclerView.Adapter<CommentsRvAdapter.CommentsRowHolder> {
-    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.forLanguageTag("GMT+8:00"));
+    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss", Locale.forLanguageTag("GMT+8:00"));
+    //    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.forLanguageTag("GMT+8:00"));
     private CommentsLab commentsLab = CommentsLab.getInstance();
     private Context context;
 
@@ -70,7 +70,7 @@ public class CommentsRvAdapter extends RecyclerView.Adapter<CommentsRvAdapter.Co
             this.content.setText(c.getContent());
             Log.d("DD1", "bind: " + c.getAuthor());
             this.author.setText(c.getAuthor());
-            this.dateTime.setText(dateFormat.format(c.getDateTime()));
+            this.dateTime.setText(dtf.format(c.getDateTime()));
 
             Glide.with(context)
                     .load("https://pan.fuyu.site/pic/pic001.png")
