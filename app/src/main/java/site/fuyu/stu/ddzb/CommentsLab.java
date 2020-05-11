@@ -4,6 +4,8 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +16,7 @@ import retrofit2.Retrofit;
 
 class CommentsLab {
     private static CommentsLab INSTANCE = null;
-    List<Comment> data = new ArrayList<>();
+    private List<Comment> data = new ArrayList<>();
 
     private CommentsLab() {
 //            getData();
@@ -33,8 +35,7 @@ class CommentsLab {
         Call<List<Comment>> call = api.getHotComments(id);
         call.enqueue(new Callback<List<Comment>>() {
             @Override
-            public void onResponse(Call<List<Comment>> call, Response<List<Comment>> response) {
-                Log.d("DD1", "onResponse:  response.body().toString() " + response.body().toString());
+            public void onResponse(@NotNull Call<List<Comment>> call, @NotNull Response<List<Comment>> response) {
                 List<Comment> comments = response.body();
                 setData(comments);
                 Log.d("DD1", "onResponse: data" + data);
@@ -43,7 +44,7 @@ class CommentsLab {
                 handler.sendMessage(msg);
             }
             @Override
-            public void onFailure(Call<List<Comment>> call, Throwable t) {
+            public void onFailure(@NotNull Call<List<Comment>> call, @NotNull Throwable t) {
             }
         });
         Log.d("DD1", "getData: " + data);
@@ -55,7 +56,7 @@ class CommentsLab {
         Call<List<Comment>> call = api.addComment(id, comment);
         call.enqueue(new Callback<List<Comment>>() {
             @Override
-            public void onResponse(Call<List<Comment>> call, Response<List<Comment>> response) {
+            public void onResponse(@NotNull Call<List<Comment>> call, @NotNull Response<List<Comment>> response) {
                 List<Comment> comments = response.body();
                 setData(comments);
                 Message message = new Message();
@@ -64,7 +65,7 @@ class CommentsLab {
             }
 
             @Override
-            public void onFailure(Call<List<Comment>> call, Throwable t) {
+            public void onFailure(@NotNull Call<List<Comment>> call, @NotNull Throwable t) {
                 Log.d("DD1", "onFailure: " + t.toString());
                 Message message = new Message();
                 message.what = 4;

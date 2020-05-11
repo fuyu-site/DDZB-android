@@ -20,9 +20,9 @@ import org.jetbrains.annotations.NotNull;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
+
 public class CommentsRvAdapter extends RecyclerView.Adapter<CommentsRvAdapter.CommentsRowHolder> {
-    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss", Locale.forLanguageTag("GMT+8:00"));
-    //    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.forLanguageTag("GMT+8:00"));
+    private DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss", Locale.forLanguageTag("GMT+8:00"));
     private CommentsLab commentsLab = CommentsLab.getInstance();
     private Context context;
 

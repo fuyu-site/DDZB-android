@@ -4,12 +4,15 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
+import org.jetbrains.annotations.NotNull;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-public class UserLab {
+
+class UserLab {
     static final int USER_LOGIN_FAIL = -1;
     static final int USER_LOGIN_SUCCESS = 1;
     static final int USER_REGISTER_SUCCESS = 1;
@@ -20,14 +23,16 @@ public class UserLab {
     private UserLab() {
     }
 
-    public static UserLab getInstance() {
+    //单例模式
+    static UserLab getInstance() {
         if (null == INSTANCE) {
             INSTANCE = new UserLab();
         }
         return INSTANCE;
     }
 
-    public void login(String username, String password, Handler handler) {
+    //User登录（response类会有的。。。）
+    void login(String username, String password, Handler handler) {
         User user = new User();
         user.setUsername(username);
         user.setPassword(password);
@@ -36,13 +41,12 @@ public class UserLab {
         Call<Integer> call = api.login(user);
         call.enqueue(new Callback<Integer>() {
             @Override
-            public void onResponse(Call<Integer> call, Response<Integer> response) {
+            public void onResponse(@NotNull Call<Integer> call, @NotNull Response<Integer> response) {
                 int num = 0;
                 if (response.body() != null) {
                     Log.d(TAG, "onResponse: " + response.body());
                     num = response.body();
                 }
-
                 switch (num) {
                     case 1:
                         Log.d(TAG, "登录成功!");
@@ -66,19 +70,20 @@ public class UserLab {
             }
 
             @Override
-            public void onFailure(Call<Integer> call, Throwable t) {
+            public void onFailure(@NotNull Call<Integer> call, @NotNull Throwable t) {
                 Log.e(TAG, "登录失败", t);
             }
         });
     }
 
-    public void register(User user, Handler handler) {
+    //User注册
+    void register(User user, Handler handler) {
         Retrofit retrofit = RetrofitClient.get();
         UserApi api = retrofit.create(UserApi.class);
         Call<User> call = api.register(user);
         call.enqueue(new Callback<User>() {
             @Override
-            public void onResponse(Call<User> call, Response<User> response) {
+            public void onResponse(@NotNull Call<User> call, @NotNull Response<User> response) {
                 Log.d(TAG, "onResponse: " + response.body());
                 Message msg3 = new Message();
                 msg3.what = USER_REGISTER_SUCCESS;
@@ -86,7 +91,7 @@ public class UserLab {
             }
 
             @Override
-            public void onFailure(Call<User> call, Throwable t) {
+            public void onFailure(@NotNull Call<User> call, @NotNull Throwable t) {
 
             }
         });

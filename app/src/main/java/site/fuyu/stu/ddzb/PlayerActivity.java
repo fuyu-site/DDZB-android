@@ -35,8 +35,6 @@ public class PlayerActivity extends AppCompatActivity {
     Channel channel;
     private CommentsRvAdapter rvAdapter;
     private CommentsLab commentsLab = CommentsLab.getInstance();
-//    private ChannelLab channelLab = ChannelLab.getInstance();
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -9,7 +9,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
 class LocalDateTimeAdapter {
-    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss", Locale.forLanguageTag("GMT+8:00"));
+    private DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss", Locale.forLanguageTag("GMT+8:00"));
 
     @ToJson
     String toJson(LocalDateTime date) {
@@ -23,7 +23,7 @@ class LocalDateTimeAdapter {
 }
 
 class LocalDateAdapter {
-    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     @ToJson
     String toJson(LocalDate date) {

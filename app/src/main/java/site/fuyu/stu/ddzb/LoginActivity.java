@@ -32,9 +32,6 @@ public class LoginActivity extends AppCompatActivity {
     };
     private TextInputLayout username;
     private TextInputLayout password;
-    private Button login;
-    private Button register;
-    private Button findPassword;
     private UserLab lab = UserLab.getInstance();
 
     @Override
@@ -44,14 +41,20 @@ public class LoginActivity extends AppCompatActivity {
 
         username = findViewById(R.id.username);
         password = findViewById(R.id.password);
-        login = findViewById(R.id.login_button);
-        register = findViewById(R.id.register_button);
-        findPassword = findViewById(R.id.find_password);
+        Button login = findViewById(R.id.login_button);
+        Button register = findViewById(R.id.register_button);
+        Button findPassword = findViewById(R.id.find_password);
 
         login.setOnClickListener(v -> {
-            String u = Objects.requireNonNull(username.getEditText()).getText().toString();
-            String p = Objects.requireNonNull(password.getEditText()).getText().toString();
-            lab.login(u, p, handler);
+            if (Objects.requireNonNull(username.getEditText()).getText().toString().length() > 0) {
+                if (Objects.requireNonNull(password.getEditText()).getText().toString().length() > 0) {
+                    lab.login(Objects.requireNonNull(username.getEditText()).getText().toString(), Objects.requireNonNull(password.getEditText()).getText().toString(), handler);
+                } else {
+                    Toast.makeText(LoginActivity.this, "请输入密码！", Toast.LENGTH_LONG).show();
+                }
+            } else {
+                Toast.makeText(LoginActivity.this, "请输入用户名！", Toast.LENGTH_LONG).show();
+            }
         });
         register.setOnClickListener(v -> register());
         findPassword.setOnClickListener(v -> findPassword());
@@ -63,22 +66,23 @@ public class LoginActivity extends AppCompatActivity {
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(intent);
         }
-    }
+    } //跳转主页面
 
     private void register() {
         if (ClickUtil.isFastClick()) {
             Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
             startActivity(intent);
         }
-    }
+    } //进入注册界面
 
     private void findPassword() {
         if (ClickUtil.isFastClick()) {
             Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
             startActivity(intent);
         }
-    }
+    } //进入找回密码界面
+
     private void loginFail() {
         Toast.makeText(LoginActivity.this, "登录失败！", Toast.LENGTH_LONG).show();
-    }
+    } //登录失败提示
 }
