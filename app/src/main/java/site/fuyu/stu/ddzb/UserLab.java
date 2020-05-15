@@ -31,46 +31,42 @@ class UserLab {
         return INSTANCE;
     }
 
-    //User登录（response类会有的。。。）
+    //User登录
     void login(String username, String password, Handler handler) {
         User user = new User();
         user.setUsername(username);
         user.setPassword(password);
         Retrofit retrofit = RetrofitClient.get();
         UserApi api = retrofit.create(UserApi.class);
-        Call<Integer> call = api.login(user);
-        call.enqueue(new Callback<Integer>() {
+        Call<Result> call = api.login(user);
+        call.enqueue(new Callback<Result>() {
             @Override
-            public void onResponse(@NotNull Call<Integer> call, @NotNull Response<Integer> response) {
-                int num = 0;
-                if (response.body() != null) {
-                    Log.d(TAG, "onResponse: " + response.body());
-                    num = response.body();
-                }
-                switch (num) {
-                    case 1:
-                        Log.d(TAG, "登录成功!");
-                        Log.d(TAG, String.valueOf(num));
-                        Message msg1 = new Message();
-                        msg1.what = USER_LOGIN_SUCCESS;
-                        handler.sendMessage(msg1);
-                        break;
-                    case 0:
-                        Message msg0 = new Message();
-                        msg0.what = USER_LOGIN_FAIL;
-                        handler.sendMessage(msg0);
-                        break;
-                    default:
-                        Log.d(TAG, "多设备登录");
-                        Log.d(TAG, String.valueOf(num));
-                        Message msg3 = new Message();
-                        msg3.what = USER_LOGIN_SUCCESS;
-                        handler.sendMessage(msg3);
+            public void onResponse(@NotNull Call<Result> call, @NotNull Response<Result> response) {
+                Result result = response.body();
+                if (result != null) {
+                    switch (result.getStatus()) {
+                        case 1:
+                            Log.d(TAG, "登录成功!");
+                            Message msg1 = new Message();
+                            msg1.what = USER_LOGIN_SUCCESS;
+                            handler.sendMessage(msg1);
+                            break;
+                        case -1:
+                            Message msg_1 = new Message();
+                            msg_1.what = USER_LOGIN_FAIL;
+                            handler.sendMessage(msg_1);
+                            break;
+                        default:
+                            Log.d(TAG, "多设备登录");
+                            Message msg2 = new Message();
+                            msg2.what = USER_LOGIN_SUCCESS;
+                            handler.sendMessage(msg2);
+                    }
                 }
             }
 
             @Override
-            public void onFailure(@NotNull Call<Integer> call, @NotNull Throwable t) {
+            public void onFailure(@NotNull Call<Result> call, @NotNull Throwable t) {
                 Log.e(TAG, "登录失败", t);
             }
         });
@@ -80,18 +76,36 @@ class UserLab {
     void register(User user, Handler handler) {
         Retrofit retrofit = RetrofitClient.get();
         UserApi api = retrofit.create(UserApi.class);
-        Call<User> call = api.register(user);
-        call.enqueue(new Callback<User>() {
+        Call<Result> call = api.register(user);
+        call.enqueue(new Callback<Result>() {
             @Override
-            public void onResponse(@NotNull Call<User> call, @NotNull Response<User> response) {
-                Log.d(TAG, "onResponse: " + response.body());
+            public void onResponse(@NotNull Call<Result> call, @NotNull Response<Result> response) {
+                Result result = response.body();
+                Log.d(TAG, "onResponse: " + result);
+                if (result != null) {
+                    switch (result.getStatus()) {
+                        case 1:
+                            Message msg1 = new Message();
+                            msg1.what = USER_REGISTER_SUCCESS;
+                            handler.sendMessage(msg1);
+                            break;
+                        case -1:
+                            Message msg0 = new Message();
+                            msg0.what = USER_REGISTER_FAIL;
+                            handler.sendMessage(msg0);
+                            break;
+
+                    }
+                } else {
+                    Log.d(TAG, "onResponse:  空");
+                }
                 Message msg3 = new Message();
                 msg3.what = USER_REGISTER_SUCCESS;
                 handler.sendMessage(msg3);
             }
 
             @Override
-            public void onFailure(@NotNull Call<User> call, @NotNull Throwable t) {
+            public void onFailure(@NotNull Call<Result> call, @NotNull Throwable t) {
 
             }
         });

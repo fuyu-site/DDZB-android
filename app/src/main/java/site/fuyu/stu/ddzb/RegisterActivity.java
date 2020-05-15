@@ -7,7 +7,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.widget.Button;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
@@ -31,7 +30,7 @@ public class RegisterActivity extends AppCompatActivity {
         public void handleMessage(@NonNull Message msg) {
             switch (msg.what) {
                 case UserLab.USER_REGISTER_SUCCESS:
-                    register();
+                    toMainActivity();
                     break;
                 case UserLab.USER_REGISTER_FAIL:
                     Toast.makeText(RegisterActivity.this, "注册失败！", Toast.LENGTH_LONG).show();
@@ -53,7 +52,7 @@ public class RegisterActivity extends AppCompatActivity {
         TextInputLayout password1 = findViewById(R.id.r_password);
         TextInputLayout password2 = findViewById(R.id.r_password2);
         RadioGroup gender = findViewById(R.id.r_gender);
-        RadioButton s_gender = findViewById(gender.getCheckedRadioButtonId()); //获取id对应的内容
+        //获取id对应的内容
         TextInputLayout phone = findViewById(R.id.r_phone);
         Button register = findViewById(R.id.r_register);
 
@@ -62,11 +61,9 @@ public class RegisterActivity extends AppCompatActivity {
                 .setTitleText(R.string.birthday_title) //设置标题
                 .build();
         //日历点击“确定”后的处理
+
         picker.addOnPositiveButtonClickListener(v -> {
-            Log.d(TAG, "日历的结果是：" + v);
             b = v;
-            Log.d(TAG, "标题是：" + picker.getHeaderText());
-            Log.d(TAG, "标题是：" + b);
             Objects.requireNonNull(birthday.getEditText()).setText(picker.getHeaderText());
         });
 
@@ -76,18 +73,22 @@ public class RegisterActivity extends AppCompatActivity {
             picker.show(getSupportFragmentManager(), picker.toString());
         });
 
+        //点击注册
         register.setOnClickListener(v -> {
             User u = new User();
-            String c_gender = s_gender.getText().toString(); //获取性别
+            int c_gender = gender.getCheckedRadioButtonId(); //获取性别
+            String s_gender;
+            Log.d(TAG, "onCreate: c_gender " + c_gender);
             switch (c_gender) {
-                case "男":
-                    c_gender = "M";
+                case R.id.r_male:
+                    s_gender = "M";
                     break;
-                case "女":
-                    c_gender = "F";
+                case R.id.r_female:
+                    s_gender = "F";
                     break;
-                case "保密":
-                    c_gender = "U";
+                case R.id.r_unknown:
+                default:
+                    s_gender = "U";
             }
             if (Objects.requireNonNull(username.getEditText()).getText().toString().length() > 0) {
                 u.setUsername(Objects.requireNonNull(username.getEditText()).getText().toString());
@@ -95,7 +96,7 @@ public class RegisterActivity extends AppCompatActivity {
                     //判断2个密码是否相等
                     if (Objects.requireNonNull(password2.getEditText()).getText().toString().equals(Objects.requireNonNull(password1.getEditText()).getText().toString())) {
                         u.setPassword(Objects.requireNonNull(password2.getEditText()).getText().toString());
-                        u.setGender(c_gender);
+                        u.setGender(s_gender);
                         Log.d(TAG, "onCreate: b" + b);
                         //LocalDateTime就是好用
                         LocalDateTime date = LocalDateTime.ofEpochSecond(b / 1000, 0, ZoneOffset.ofHours(8));
@@ -116,7 +117,7 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
-    private void register() {
+    private void toMainActivity() {
         if (ClickUtil.isFastClick()) {  //过滤多次点击
             Toast.makeText(RegisterActivity.this, "注册成功！", Toast.LENGTH_LONG).show();
             Toast.makeText(RegisterActivity.this, "欢迎来到DDZB！", Toast.LENGTH_LONG).show();
@@ -124,4 +125,5 @@ public class RegisterActivity extends AppCompatActivity {
             startActivity(intent);
         }
     }
+
 }
